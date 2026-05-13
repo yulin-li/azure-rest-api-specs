@@ -30,10 +30,10 @@ interface AgentWebsocket {
   connectEndpointWebsocket is FoundryDataPlaneOperation<
     {
       /** The name of the project. */
-      @query("project-name") projectName: string;
+      @query project_name: string;
 
       /** The name of the hosted agent. */
-      @query("agent-name") agentName: string;
+      @query agent_name: string;
 
       /** Optional session/conversation ID. Pass the same value on a subsequent connection to reattach to an existing session. If not provided, the service auto-generates one. */
       @query agent_session_id?: string;

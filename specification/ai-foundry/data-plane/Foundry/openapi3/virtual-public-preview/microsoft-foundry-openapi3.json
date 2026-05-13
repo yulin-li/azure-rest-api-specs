@@ -255,7 +255,7 @@
         "description": "Establishes a WebSocket connection to a hosted agent. The target project and\nagent are passed as query parameters. The service resolves (or creates) a\nsession, resolves the agent version, then relays text and binary frames\nbidirectionally between the client and the agent (1 MB maximum frame size).\n\nThe client must send an HTTP GET with `Upgrade: websocket` headers.",
         "parameters": [
           {
-            "name": "project-name",
+            "name": "project_name",
             "in": "query",
             "required": true,
             "description": "The name of the project.",
@@ -265,7 +265,7 @@
             "explode": false
           },
           {
-            "name": "agent-name",
+            "name": "agent_name",
             "in": "query",
             "required": true,
             "description": "The name of the hosted agent.",
