@@ -105,6 +105,9 @@ union VoiceAgentServerEvent {
   session_handoff_started: VoiceAgentServerEventSessionHandoffStarted,
   session_handoff_completed: VoiceAgentServerEventSessionHandoffCompleted,
   session_handoff_aborted: VoiceAgentServerEventSessionHandoffAborted,
+  session_subagent_started: VoiceAgentServerEventSessionSubagentStarted,
+  session_subagent_completed: VoiceAgentServerEventSessionSubagentCompleted,
+  session_subagent_aborted: VoiceAgentServerEventSessionSubagentAborted,
   warning: VoiceAgentServerEventWarning,
   session_avatar_connecting: VoiceAgentServerEventSessionAvatarConnecting,
   session_avatar_switch_to_speaking: VoiceAgentServerEventSessionAvatarSwitchToSpeaking,
@@ -1711,6 +1714,65 @@ model VoiceAgentServerEventSessionHandoffAborted {
 
   @doc("The error that aborted the handoff, when `reason` is `error`.")
   error?: VoiceAgentServerEventErrorDetails;
+}
+
+@doc("Fields shared by subagent consultation lifecycle events.")
+model VoiceAgentSubagentEventProperties {
+  @doc("The unique identifier of the event.")
+  event_id: string;
+
+  @doc("The service-generated identifier of the subagent consultation.")
+  consultation_id: string;
+
+  @doc("The identifier of the function call that initiated the consultation.")
+  call_id: string;
+
+  @doc("The configured name of the consulted subagent.")
+  subagent_name: string;
+}
+
+@doc("The `session.subagent.started` server event.")
+@usage(VoiceAgentServerEventUsage)
+model VoiceAgentServerEventSessionSubagentStarted {
+  type: "session.subagent.started";
+  ...VoiceAgentSubagentEventProperties;
+}
+
+@doc("The `session.subagent.completed` server event.")
+@usage(VoiceAgentServerEventUsage)
+model VoiceAgentServerEventSessionSubagentCompleted {
+  type: "session.subagent.completed";
+  ...VoiceAgentSubagentEventProperties;
+}
+
+@doc("Why a subagent consultation ended without completing.")
+union VoiceAgentSubagentAbortReason {
+  string,
+
+  @doc("The requested subagent was not configured.")
+  unknown_target: "unknown_target",
+
+  @doc("The consultation exceeded its allowed duration.")
+  timeout: "timeout",
+
+  @doc("The consultation was cancelled.")
+  cancelled: "cancelled",
+
+  @doc("The consultation was replaced by a newer consultation.")
+  superseded: "superseded",
+
+  @doc("The consultation failed.")
+  failed: "failed",
+}
+
+@doc("The `session.subagent.aborted` server event.")
+@usage(VoiceAgentServerEventUsage)
+model VoiceAgentServerEventSessionSubagentAborted {
+  type: "session.subagent.aborted";
+  ...VoiceAgentSubagentEventProperties;
+
+  @doc("The reason the subagent consultation was aborted.")
+  reason: VoiceAgentSubagentAbortReason;
 }
 
 @doc("Details of a non-fatal warning.")
