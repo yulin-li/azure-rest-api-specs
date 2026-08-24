@@ -97,6 +97,19 @@ using Azure.AI.Projects;
 @@clientName(OpenAI.MCPToolRequireApproval, "McpToolRequireApproval");
 @@clientName(MCPToolboxTool, "McpToolboxTool");
 
+@@clientName(OpenAI.RealtimeMCPError, "RealtimeMcpError", "java");
+@@clientName(OpenAI.RealtimeMCPHTTPError, "RealtimeMcpHttpError", "java");
+@@clientName(
+  OpenAI.RealtimeMCPProtocolError,
+  "RealtimeMcpProtocolError",
+  "java"
+);
+@@clientName(
+  OpenAI.RealtimeMCPToolExecutionError,
+  "RealtimeMcpToolExecutionError",
+  "java"
+);
+
 @@clientName(MemorySearchPreviewTool.update_delay, "updateDelaySeconds");
 
 @@clientName(AgentObject.blueprint, "blueprintIdentity");
@@ -134,6 +147,11 @@ using Azure.AI.Projects;
 
 @@clientName(OpenAI.ApplyPatchToolParam, "ApplyPatchToolParameter", "java");
 @@clientName(OpenAI.CustomToolParam, "CustomToolParameter", "java");
+@@clientName(
+  OpenAI.ProgrammaticToolCallingParam,
+  "ProgrammaticToolCallingParameter",
+  "java"
+);
 @@clientName(OpenAI.NamespaceToolParam, "NamespaceTool", "java");
 @@clientName(OpenAI.ToolSearchToolParam, "ToolSearchTool", "java");
 @@clientName(
