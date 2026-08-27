@@ -12,7 +12,7 @@ options:
     generate-tests: false
     generate-samples: false
     custom-types-subpackage: "implementation.models"
-    custom-types: "ItemReferenceParam,EasyInputMessage,EasyInputMessageRole,EasyInputMessageStatus,ApproximateLocation,WebSearchApproximateLocation"
+    custom-types: "ItemReferenceParam,EasyInputMessage,EasyInputMessageRole,EasyInputMessageStatus"
     rename-model:
       GrammarSyntax1: GrammarSyntax
       ReasoningEffort1: ReasoningEffort
@@ -21,6 +21,20 @@ options:
       MCPToolConnectorId: McpToolConnectorId
       UpdateAgentDetailsPatchRequest: UpdateAgentDetailsOptions
       AgentsPagedResultOptimizationCandidate: OptimizationCandidatePagedResult
+      OmitPropertiesRealtimeResponse: VoiceResponseBase
+      OmitPropertiesObject: VoiceResponseObject
+      OmitPropertiesStatus: VoiceResponseStatus
+      OmitPropertiesOutputModality: VoiceResponseOutputModality
+      VoiceConversationItemObject: RealtimeConversationItemMessageSystemObject
+      VoiceConversationItemObject1: RealtimeConversationItemMessageUserObject
+      VoiceConversationItemObject2: RealtimeConversationItemMessageAssistantObject
+      VoiceConversationItemObject3: RealtimeConversationItemFunctionCallObject
+      VoiceConversationItemObject4: RealtimeConversationItemFunctionCallOutputObject
+      VoiceConversationItemStatus: RealtimeConversationItemMessageSystemStatus
+      VoiceConversationItemStatus1: RealtimeConversationItemMessageUserStatus
+      VoiceConversationItemStatus2: RealtimeConversationItemMessageAssistantStatus
+      VoiceConversationItemStatus3: RealtimeConversationItemFunctionCallStatus
+      VoiceConversationItemStatus4: RealtimeConversationItemFunctionCallOutputStatus
     customization-class: customizations/src/main/java/AgentsCustomizations.java
     flavor: azure
   "@azure-tools/typespec-client-generator-cli":
