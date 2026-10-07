@@ -43,7 +43,7 @@ interface VoiceAgentWebSocket {
    * `VoiceAgents=V1Preview` opt-in through either the `Foundry-Features` header or the `foundry_features`
    * query parameter.
    *
-   * Handshake failures are evaluated in the following order, independent of the requested `transport`:
+   * Connection checks are evaluated in the following order:
    *
    * 1. Agent enablement (any transport): if the target agent is disabled, the handshake fails before the
    *    `101 Switching Protocols` upgrade with `409 Conflict`, using the shared Foundry `ApiErrorResponse` shape
@@ -53,8 +53,13 @@ interface VoiceAgentWebSocket {
    *    must have the WebRTC transport capability configured. If the agent is enabled but WebRTC is not available
    *    for it, the handshake fails with `404 Not Found`. This is distinct from the `409 agent_disabled` case
    *    above, which concerns the agent itself rather than its WebRTC capability.
-   * 3. WebRTC compatibility (only when `transport=webrtc`): WebRTC does not support bring-your-own-model (BYOM)
-   *    or hosted-agent voice agents; those requests fail with `400 Bad Request`.
+   * 3. WebRTC compatibility (only when `transport=webrtc`): where enabled, compatible managed and self-deployed
+   *    realtime and cascaded text models can use WebRTC. A self-deployed agent continues to use its configured
+   *    customer deployment; the service does not substitute a managed model. Hosted-agent conversation engines
+   *    are unsupported. For that combination, the service accepts the control WebSocket, sends an `error` event
+   *    with `error.type = invalid_request_error` and `error.code = unsupported_transport`, and closes it with
+   *    WebSocket status `1008`. The error message identifies the combination and directs the caller to
+   *    `transport=websocket`. An HTTP upgrade alone does not establish a working media session.
    */
   #suppress "@azure-tools/typespec-azure-core/no-response-body" "A successful WebSocket 101 protocol switch has no HTTP entity body; messages begin as WebSocket frames after the upgrade."
   @summary("Connect to a voice agent")
